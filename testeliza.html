@@ -90,9 +90,17 @@ var qaList = [
     }
 
     function answer() { // 回答問題
-      setTimeout(function () { // 停頓 1 到 3 秒再回答問題 (因為若回答太快就不像人了，人打字需要時間)
-        append(">> "+getAnswer());
-      }, 1000+random(2000));
+      var say = '';     
+
+      ThunkableWebviewerExtension.receiveMessage(function(message) {  
+
+      say = message     ;
+
+      append(say); // 先將使用者輸入的問句放到「對話區」顯示。
+
+      answer(); // 然後回答使用者的問題。
+
+    });
     }
     
     function getAnswer() {
